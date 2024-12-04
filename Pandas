@@ -1,0 +1,13 @@
+pandas :
+-> pandas is referred as "panel data" created by mckinney in 2008.
+-> it is a python library for analyzing,cleaning,exploring,and manipulating data.
+
+pandas contain three data structures... 
+1.series-one dimensional 
+2.dataframe-2D 
+3.Panel-3D
+
+Advantages :
+main advanatge of using pandas over excel is easy handling of data and flitering. 
+it can clean messy datasets,and make them readable and relavant.
+
