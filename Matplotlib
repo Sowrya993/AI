@@ -1,0 +1,56 @@
+Data Visualization: it is a quick easy way to convey concepts in a universal manner.
+-> By using various data visualization tools like charts,graphs and maps we can provide an accessible way to see and understand trends,outliers and patterns in data.
+
+Types of data visualization in python
+-> matplotlib : low level,provide lots of freedom
+-> pandas visualiztion : easy to use inreface,built on matplotlib
+-> seaborn : high level interface, great default styles
+-> ggplot : based on R's ggplot2,uses grammar of graphics
+-> plotly : can create interactive plots
+
+Matplotlib
+-> it is a 2D and 3D plotting library in python for data visualization.
+-> Introduced by john hunter in the year 2002.
+
+Bar plot : 
+import matplotlib.pyplot as plt
+x=["jan","feb","march","april"]
+y=[31,28,31,30]
+z=[20,30,40,50]
+plt.xlabel("months",fontsize=25)
+plt.ylabel("days",fontsize=25)
+plt.title("months vs days",fontsize=25)
+c=["yellow","black","blue","green"]
+plt.bar(x,y,width=0.4,color="black",align="edge/center",edgecolor="red",linewidth=5,linestyle=":",alpha=0.5)
+plt.bar(x,z,width=0.4,color="yellow",align="center",edgecolor="red",linewidth=5,linestyle=":",alpha=0.5)
+plt.show()
+
+import numpy as np
+x=["jan","feb","march","april"]
+y=[31,28,31,30]
+z=[20,30,40,50]
+width=0.2
+p=np.arange(len(x))
+p1=[j+width for j in p]
+plt.xlabel("months",fontsize=25)
+plt.ylabel("days",fontsize=25)
+plt.title("months vs days",fontsize=25)
+plt.bar(p,y,width,color="red")
+plt.bar(p1,z,width,color="yellow")
+plt.show()
+
+for horizontal bar graph just replace bar with barh.
+
+-> Scatter plot
+x=[1,2,3,4,5,6,7]
+y=[2,3,1,4,5,3,6]
+c=["red","black","green","yellow","blue","m","green"]
+sizes=[400,200,100,200,100,400,500]
+plt.xlabel("day",fontsize=15)
+plt.ylabel("no",fontsize=15)
+plt.title("Scatter plot",fontsize=15)
+plt.scatter(x,y,s=sizes,alpha=0.5,marker="*",edgecolor="black",linewidth=1,color=c)
+t=plt.colorbar()
+t.set_label("colorbar",fontsize=15)
+plt.show()
+
