@@ -1,0 +1,405 @@
+Numpy
+Numpy is a python library used for scientific computing
+numpy array is a grid of values containg info about the raw data i.e how to locate an element and how to interpret an element.
+
+advantage of numpy over list is
+1.consumes less memory bcz of homogenity and contiguous block of allocation
+2.faster than list for performing various mathematical operations
+3.provides better ways of handling data for processing.
+
+pip install numpy #installation
+import numpy as np #importing
+
+import numpy as np
+%timeit x=np.array([1,2,3,4])   #for knowing the execution time
+x=np.array([1,2,3,4],np.int8)
+print(x)
+print(type(x))
+
+#dimension
+x=np.array([1,2,3]) #1D array
+y=np.array([[1,2,3]])  #2D array
+z=np.array([[[1,2,3]]]) #3D array
+print(x.ndim)  #1
+print(y.ndim)  #2
+print(z.ndim)  #3
+a=np.array([1,2,3],ndmin=9)  #creating multidimensional array
+print(a)  #we get 9 dimensional array
+print(a.ndim)
+
+
+-> creating numpy using numpy functions
+#arary with zeros
+a=np.zeros(4) #1D
+print(a)
+[0. 0. 0. 0.]
+
+b=np.zeros((3,4)) #2D
+print(b)
+[[0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]]
+
+#array with ones
+a=np.ones(4) #1D
+print(a)
+[1. 1. 1. 1.]
+
+b=np.ones((3,4)) #2D
+print(b)
+[[1. 1. 1. 1.]
+ [1. 1. 1. 1.]
+ [1. 1. 1. 1.]]
+
+#range
+a=np.arange(10)
+print(a)  #[0 1 2 3 4 5 6 7 8 9]
+
+a=np.empty(10)  #empty array
+print(a)
+[6.23042070e-307 4.67296746e-307 1.69121096e-306 2.22521816e-307
+ 2.67017826e-306 1.42413555e-306 1.78019082e-306 1.37959740e-306
+ 6.23057349e-307 1.42419530e-306]
+
+#diagnol
+a=np.eye(4)
+print(a)
+[[1. 0. 0. 0.]
+ [0. 1. 0. 0.]
+ [0. 0. 1. 0.]
+ [0. 0. 0. 1.]]
+
+#linespace
+a=np.linspace(1,10,num=4)  #four numbers with equal difference in between 1 and 10
+print(a)
+[ 1.  4.  7. 10.]
+
+
+-> craeting numpy array using random numbers
+a=np.random.rand(4)  #generate random numbers in between 0 and 1
+print(a)
+[0.95426303 0.73677007 0.85090701 0.08124293]
+
+a=np.random.randn(4)  #generate random numbers close to zero which may be positive or negative
+print(a)
+[ 0.89280076  0.30035965 -1.05116597 -0.18843378]
+
+a=np.random.ranf(4)  #generate random numbers in interval 0.0 and 1.0
+print(a)
+[0.97635427 0.36075847 0.66274627 0.77306543]
+
+a=np.random.rand(1,4)  #generate random numbers in between the given range
+print(a)
+[[0.74631457 0.71990086 0.97590909 0.15591623]]
+
+
+-> arithmatic operations
+a=np.array([1,2,3,4])
+b=np.array([1,2,3,4])
+print(np.add(a,b))
+[2 4 6 8]
+
+print(np.subtract(a,b))
+[0 0 0 0]
+
+print(np.multiply(a,b))
+[ 1  4  9 16]
+
+print(np.divide(a,b))
+[1. 1. 1. 1.]
+
+print(np.mod(a,b))
+[0 0 0 0]
+
+print(np.power(a,b))
+[  1   4  27 256]
+
+print(np.reciprocal(a))
+[1 0 0 0]
+
+
+-> arithmetic functions
+a=np.array([1,2,3,4])
+print(np.min(a),np.argmin(a)) #argmin/argmax defines the position of min and max(gives index)
+1 0
+print(np.max(a),np.argmax(a))
+4 3
+np.argsort() #sorting numbers based on indexes
+[0,1,2,3]
+
+print(np.sqrt(a))
+[1.         1.41421356 1.73205081 2.        ]
+
+print(np.sin(a))
+print(np.cos(a))
+[ 0.84147098  0.90929743  0.14112001 -0.7568025 ]
+[ 0.54030231 -0.41614684 -0.9899925  -0.65364362]
+
+print(np.cumsum(a)) # cumulative sum
+[ 1  3  6 10]
+
+a=np.array([[2,0,9,3],[8,9,6,2]])
+print(np.min(a,axis=0)) #colwise
+[2 0 6 2]
+
+print(np.max(a,axis=1)) #rowwise
+[9 9]
+
+
+# shape and reshape
+a=np.array([1,2,3,4,5,6])
+print(a.shape)
+(6,)  #1D containing 6 elements
+
+b=np.array([1,2,3,4,5,6 ],ndmin=10)
+print(b.shape)
+(1, 1, 1, 1, 1, 1, 1, 1, 1, 6)   #The first 9 dimensions each have size 1.
+The 10th dimension has size 6 (representing the elements [1, 2, 3, 4, 5, 6]).
+
+print(a.reshape(2,3))    # when you need to reorganize data into a specific shape.
+[[1 2 3]
+ [4 5 6]]
+
+print(a.ravel())   #when you want to quickly flatten an array
+[1,2,3,4,5,6]
+
+#braodcasting
+x=np.array([[1],[2]])   # rows common 2&2 hence 2 cols are 1&3 max is 3 hence result is (2x3)
+print(x.shape)
+(2, 1)
+y=np.array([[1,2,3],[4,5,6]])
+print(y.shape)
+(2, 3)
+print(x+y)    # matrix addition
+[[2 3 4]
+ [6 7 8]]
+
+
+#indexing and slicing
+a=np.array([1,2,3,4])
+print(a[2])
+3
+
+print(a[-2])  #from back
+3
+
+b=np.array([[1,3],[6,7]])
+print(b[1,0])
+6
+
+c=np.array([[[1,2,3],[4,5,6]]])
+print(c[0,1,0])
+4
+
+d=np.array([1,2,3,4,5,6,7])
+print(d[2:6:2]) # start stop step
+[3 5]
+
+print(d[:6])   #all elements before index 6
+[1 2 3 4 5 6]
+
+e=np.array([[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15]])
+print(e[1,1:])
+[ 7  8  9 10]
+
+
+#iterating
+a=np.array([1,2,3,4])
+for i in a:
+    print(i)
+1
+2
+3
+4
+
+for i in np.nditer(a):
+    print(i)
+1
+2
+3
+4
+
+for i in np.ndenumerate(a):
+    print(i)
+((0,), 1)
+((1,), 2)
+((2,), 3)
+((3,), 4)
+
+var=np.array([[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15]]) # for n-dimension n-forloops can be used
+for i in var:
+    for j in i:
+        print(j)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+
+
+
+#copy and view
+a=np.array([1,2,3,4])
+b=a.copy()   #changes made to copy doesnot reflect the main array
+print(a)
+a=np.array([1,2,3,4])
+b=a.view() #changes made to view reflect the original array
+print(a)
+
+
+#joining of ararys
+a=np.array([1,2,3,4])
+b=np.array([9,8,7,6])
+print(np.concatenate((a,b)))
+[1 2 3 4 9 8 7 6]
+
+print(np.stack((a,b)))
+[[1 2 3 4]
+ [9 8 7 6]]
+
+print(np.hstack((a,b))) #rowwise
+[1 2 3 4 9 8 7 6]
+
+print(np.vstack((a,b))) #colwise
+[[1 2 3 4]
+ [9 8 7 6]]
+
+print(np.dstack((a,b))) #heightwise
+[[[1 9]
+  [2 8]
+  [3 7]
+  [4 6]]]
+
+
+a=np.array([[1,2],[3,4]])
+b=np.array([[5,6],[7,8]])
+print(np.concatenate((a,b)))
+print()
+[[1 2]
+ [3 4]
+ [5 6]
+ [7 8]]
+
+print(np.concatenate((a,b),axis=0))
+print()
+[[1 2]
+ [3 4]
+ [5 6]
+ [7 8]]
+
+print(np.concatenate((a,b),axis=1))
+[[1 2 5 6]
+ [3 4 7 8]]
+
+# splitting of arrays
+a=np.array([1,2,3,4,5,6])
+print(np.array_split(a,2)) # splitting an array a into two arrays
+[array([1, 2, 3]), array([4, 5, 6])]
+
+
+#search
+a=np.array([1,2,3,4])
+print(np.where(a==4))
+(array([3], dtype=int64),)
+
+print(np.where(a%2==0)) # search for even numbers
+(array([1, 3], dtype=int64),)
+
+#sort
+a=np.array([2,1,5,3,7,5,6,9])
+print(np.sort(a))
+
+#searchsorted   tells where the element can be inserted
+a=np.array([1,2,3,4,6,7,8])
+print(np.searchsorted(a,5,side="left"))  #"left": Insert before duplicates.
+4 
+
+print(np.searchsorted(a,9,side="right"))  #"right": Insert after duplicates.
+7
+
+#shuffle
+a=np.array([1,2,3,4,5])
+np.random.shuffle(a)
+print(a)
+[2 4 3 1 5]
+
+#unique
+a=np.array([1,2,2,3,5,6,7,3,4,5])
+print(np.unique(a,return_counts=True))
+(array([1, 2, 3, 4, 5, 6, 7]), array([1, 2, 2, 1, 2, 1, 1], dtype=int64))
+
+#resize
+print(np.resize(a,(2,3)))
+[[1 2 2]
+ [3 5 6]]
+print(a.flatten())
+[1 2 2 3 5 6 7 3 4 5]
+
+#insert
+a=np.array([1,2,3,4])
+print(np.insert(a,3,50)) # list,pos,ele  doesnot allow float
+[ 1  2  3 50  4]
+
+print(np.append(a,6.5)) #appends at end
+[1.  2.  3.  4.  6.5]
+
+
+#delete
+a=np.array([1,2,3,4])
+print(np.delete(a,2)) #list,pos
+[1 2 4]
+
+a=np.array([[1,2,3],[4,5,6],[7,8,9]])
+a.T #Transpose
+array([[1, 4, 7],
+       [2, 5, 8],
+       [3, 6, 9]])
+
+#filter(getting some elements out and creating a new array out of them)
+a=np.array([1,2,3,4])
+f=[True,True,False,False]
+print(a[f])
+A True value in f means the corresponding element in a is selected.
+A False value means the corresponding element is ignored.
+[1 2]
+
+Difference between reshape and resize
+-> Throws an error if the new shape is incompatible with the total number of elements.
+-> Pads with zeros or truncates if the new shape is incompatible.
+
+Difference between ravel and flatten
+-> flatten: Returns a copy of the array in a 1D form.
+-> ravel: Returns a flattened view if possible; otherwise, returns a copy.
+
+What are structured arrays in NumPy?
+Structured arrays allow arrays to have mixed data types.
+data = np.array([(1, 'Alice', 3.5), (2, 'Bob', 4.0)], 
+                dtype=[('ID', 'i4'), ('Name', 'U10'), ('Score', 'f4')])
+print(data['Name'])  # Output: ['Alice' 'Bob']
+
+How do you handle missing values in a NumPy array?
+You can use np.isnan() to find missing values and handle them using methods like replacement or removal:
+a = np.array([1, np.nan, 2, np.nan])
+print(np.isnan(a))  # Output: [False True False True]
+print(np.nan_to_num(a))  # Replace NaN with 0: [1. 0. 2. 0.]
+
+How does NumPy handle broadcasting?
+Broadcasting allows NumPy to perform operations on arrays of different shapes by expanding the smaller array to match the shape of the larger one.
+a = np.array([1, 2, 3])
+b = 2
+print(a + b)  # Output: [3 4 5] (b is broadcasted to [2, 2, 2])
+
+
+
+
+
