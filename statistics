@@ -1,0 +1,837 @@
+Introduction to Statistics
+Population & Sample
+Population:
+The entire group that you want to draw conclusions about.
+Example: All employees in a company, all patients in a hospital, or all citizens of a country.
+The population is often vast, making it impractical to analyze every individual within it.
+
+Sample:
+A smaller, manageable subset of the population used to infer conclusions about the population.
+Example: 100 randomly selected employees from a company or a group of 500 students selected from a university.
+Sampling is widely used to reduce the time, cost, and resources required for data analysis.
+
+Why Sampling?
+Sampling ensures efficiency while maintaining statistical reliability when analyzing large populations. Proper sampling methods help eliminate bias and improve the accuracy of predictions.
+
+Types of Sampling Methods
+There are two broad categories of sampling methods: Probability Sampling and Non-Probability Sampling.
+
+A. Probability Sampling
+Every member of the population has a known and equal chance of being selected.
+
+Simple Random Sampling:
+Every individual has an equal chance of being selected.
+Example: Selecting random names from a list.
+
+Stratified Sampling:
+Divide the population into subgroups (strata) based on shared characteristics, then sample randomly within each stratum.
+Example: Divide based on age groups and then sample randomly within each group.
+
+Cluster Sampling:
+Divide the population into clusters (e.g., geographic regions) and randomly select entire clusters to sample.
+Example: Selecting schools in a district, then surveying all students within selected schools.
+
+Systematic Sampling:
+Select every nth individual from a list after randomly choosing a starting point.
+Example: Picking every 10th person from a list.
+
+Multi-Stage Sampling:
+A combination of sampling methods, often involving multiple stages of randomization.
+Example: Randomly selecting regions, then cities, then individuals.
+
+B. Non-Probability Sampling
+Not every member of the population has a chance of being selected, and the selection process is not random.
+
+Convenience Sampling:
+Select individuals who are easiest to reach.
+Example: Surveying people at a mall.
+
+Judgmental or Purposive Sampling:
+The researcher selects participants based on their judgment of who is most appropriate for the study.
+Example: Choosing experts in a field for a study.
+
+Snowball Sampling:
+Existing participants refer others to the study.
+Example: Finding participants through referrals in a niche group.
+
+Quota Sampling:
+Divide the population into subgroups and sample a fixed number (quota) from each subgroup.
+Example: Sampling 50 men and 50 women regardless of their proportion in the population.
+
+Voluntary Sampling:
+Participants self-select to be part of the study.
+Example: Online polls or surveys.
+
+Statistics : 
+Statistics is a set of mathematical methods and tools that enable us to answer important questions about data.
+
+Descriptive vs Inferential Statistics
+Descriptive Statistics:
+Summarizes and organizes data using numerical and graphical methods.
+Key Functions: Describes characteristics such as central tendency (mean, median, mode) and variability (range, variance, standard deviation), measure of shape, percentiles, frequency distribution, covariance, and correlation.
+Example: Calculating the average age of employees in a department.
+
+Inferential Statistics:
+Draws conclusions about a population based on a sample and evaluates probabilities.
+Key Functions: Hypothesis testing, confidence intervals, regression analysis, and central limit theorem.
+Example: Predicting the average height of all students in a university based on a random sample.
+
+Basic Statistical Measures
+Mean (Average):
+Formula: Mean = (Sum of observations) / (No. of observations)
+The mean represents the arithmetic average of the dataset.
+
+Python Code:
+import numpy as np
+import pandas as pd
+data = np.array([1, 2, 3, 4, 5, 6])
+mean = np.mean(data)
+print("Mean:", mean)
+
+dataset = pd.read_csv("titanic.csv")
+dataset["age"].mean()
+np.mean(dataset["age"])
+
+Median:
+Definition: The middle value in a sorted dataset.
+
+Python Code:
+median = np.median(data)
+print("Median:", median)
+
+Mode:
+Definition: The most frequently occurring value in the dataset.
+
+Python Code:
+from scipy import stats
+mode = stats.mode(data)
+print("Mode:", mode.mode[0])
+
+dataset["fare"].mode()[0]  # Result is series; we retrieve the first value
+dataset["fare"].value_counts()
+
+Plotting Central Tendency Using Seaborn:
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+mn = np.mean(dataset["Fare"])
+md = np.median(dataset["Fare"])
+mo = dataset["Fare"].mode()[0]
+
+sns.histplot(x="Fare", data=dataset, bins=[i for i in range(0, 81, 10)])
+plt.plot([mn for i in range(0, 300)], [i for i in range(0, 300)], c="green", label="mean")
+plt.plot([md for i in range(0, 300)], [i for i in range(0, 300)], c="red", label="median")
+plt.plot([mo for i in range(0, 300)], [i for i in range(0, 300)], c="blue", label="mode")
+plt.legend()
+plt.show()
+
+Measures of Variability
+Mean Absolute Deviation (MAD):
+It is the average distance between each data point and the mean.
+Formula:
+MAD=∑∣𝑥𝑖−𝜇∣𝑛
+
+Python Code:
+mean = np.mean(data)
+mad = np.sum(np.abs(data - mean)) / len(data)
+print("MAD:", mad)
+
+Variance:
+Definition: Variance measures the average squared deviation of each data point from the mean.
+Formula:
+Variance=∑(𝑋−𝜇)2/𝑁
+ 
+Python Code:
+variance = np.var(data)
+print("Variance:", variance)
+
+dataset["age"].var()
+
+Standard Deviation (SD):
+Definition: The square root of variance. It quantifies the amount of variation or dispersion in a dataset.
+Low SD indicates that the values tend to be close to the mean.
+High SD indicates that the values are spread out over a wider range.
+Formula:SD=sqrt(∑(𝑋−𝜇)2/𝑁)
+
+Python Code:
+std_dev = np.std(data)
+print("Standard Deviation:", std_dev)
+
+dataset["age"].std()
+
+Range:
+Definition: The difference between the maximum and minimum values in the dataset.
+Formula:
+Range=Max−Min
+Python Code:
+data_range = max(data) - min(data)
+print("Range:", data_range)
+
+max_r = dataset["age"].max()
+min_r = dataset["age"].min()
+range_value = max_r - min_r
+
+Percentage, Percentiles, and Quartiles
+Percentage:
+Definition: A ratio expressed as a fraction of 100.
+Formula:
+PercentagePartWhole×100
+
+Python Code:
+part = 50
+whole = 200
+percentage = (part / whole) * 100
+print("Percentage:", percentage)
+
+Percentiles:
+Definition: The value below which a certain percentage of data points fall. Percentiles are commonly used in test scores and distributions.
+Formula:
+Percentile(𝑃)=𝑋(𝑃100)×(𝑁+1)
+ 
+Python Code:
+percentile_25 = np.percentile(data, 25)
+print("25th Percentile:", percentile_25)
+
+Quartiles:
+Definition: Quartiles divide a dataset into four equal parts.
+Q1: 25th percentile
+Q2: 50th percentile (Median)
+Q3: 75th percentile
+The Interquartile Range (IQR) is calculated as 𝑄3−𝑄1
+Q3−Q1 and measures the spread of the middle 50% of data and helps find outliers.
+Formula for outliers:
+Min: 𝑄1−1.5×𝑄𝑅
+Max: 𝑄3+1.5×𝐼𝑅
+
+Python Code:
+q1 = np.percentile(data, 25)
+q3 = np.percentile(data, 75)
+iqr = q3 - q1
+
+Measures of Shape: Understanding the Skewness
+Skewness:
+Skewness measures the asymmetry of the data distribution.
+Negative skew (left-skewed): Tail is longer on the left.
+Positive skew (right-skewed): Tail is longer on the right.
+Dataset[“age”].skew()
+Frequency distribution : is a table that shows the number of occurences of different values in a dataset.
+Cumulative frequency : adding up the frequenct as you move through the values.
+
+Random Variable
+Definition:
+A random variable is a function that assigns a real number to each outcome in the sample space of a random experiment.
+
+Types:
+Discrete Random Variable:
+Takes on a countable number of distinct values.
+Example: Rolling a die, where outcomes are {1, 2, 3, 4, 5, 6}.
+
+Continuous Random Variable:
+Takes on any value within a given range or interval.
+Example: Measuring the height of students (e.g., 150.1 cm, 170.25 cm).
+
+Code Example:
+Discrete Random Variable Example: Rolling a Die
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define outcomes and probabilities
+outcomes = [1, 2, 3, 4, 5, 6]
+probabilities = [1/6] * 6
+
+# Plot
+plt.bar(outcomes, probabilities, color='skyblue')
+plt.xlabel('Outcomes')
+plt.ylabel('Probability')
+plt.title('Discrete Random Variable: Rolling a Die')
+plt.show()
+
+Continuous Random Variable Example: Heights
+from scipy.stats import norm
+
+# Generate random data
+mean, std_dev = 170, 10  # Mean height = 170 cm, Std Dev = 10 cm
+heights = np.random.normal(mean, std_dev, 1000)
+
+# Plot histogram
+plt.hist(heights, bins=30, density=True, alpha=0.6, color='skyblue')
+
+# Overlay normal distribution curve
+x = np.linspace(mean - 3*std_dev, mean + 3*std_dev, 100)
+plt.plot(x, norm.pdf(x, mean, std_dev), color='red', label='Normal Distribution')
+plt.xlabel('Height (cm)')
+plt.ylabel('Density')
+plt.title('Continuous Random Variable: Heights')
+plt.legend()
+plt.show()
+
+
+Probability
+Definition:
+The likelihood of a particular outcome or event occurring.
+Formula:𝑃(𝐴)=Number of times A occurs/Total number of possible outcomes
+Example:
+Probability of Rolling a 4 on a Die
+Total outcomes = {1, 2, 3, 4, 5, 6}
+Probability of 4: 𝑃(4)=1/6
+
+​
+Probability Distribution
+Definition:
+Describes how probabilities of different outcomes are distributed over the sample space of a random variable.
+
+Types:
+Discrete Probability Distribution:
+Applies to discrete random variables.
+Example: Rolling a die, where each outcome has a probability of 1/6
+​
+ .
+Continuous Probability Distribution:
+Applies to continuous random variables.
+Example: Heights of people, which follow a normal distribution.
+​
+
+1. Probability Mass Function (PMF)
+Definition:
+The Probability Mass Function (PMF) is used for discrete random variables. It gives the probability of a random variable 
+𝑋
+X taking a specific value 
+𝑥
+x:
+
+𝑃
+(
+𝑋
+=
+𝑥
+)
+P(X=x)
+PMF satisfies:
+𝑃
+(
+𝑋
+=
+𝑥
+)
+≥
+0
+P(X=x)≥0 for all 
+𝑥
+x (probabilities are non-negative).
+The sum of all probabilities is 
+1
+1: 
+∑
+𝑃
+(
+𝑋
+=
+𝑥
+)
+=
+1
+∑P(X=x)=1.
+Example:
+Rolling a fair die:
+Possible outcomes: 
+𝑋
+=
+{
+1
+,
+2
+,
+3
+,
+4
+,
+5
+,
+6
+}
+X={1,2,3,4,5,6}
+𝑃
+(
+𝑋
+=
+𝑥
+)
+=
+1
+6
+P(X=x)= 
+6
+1
+​
+  for each outcome.
+Properties:
+Only valid for discrete random variables.
+The probabilities 
+𝑃
+(
+𝑋
+=
+𝑥
+)
+P(X=x) are fixed for each value 
+𝑥
+x.
+Code Example:
+python
+Copy code
+import matplotlib.pyplot as plt
+
+# Define outcomes and probabilities for rolling a die
+outcomes = [1, 2, 3, 4, 5, 6]
+probabilities = [1/6] * 6
+
+# Plot PMF
+plt.bar(outcomes, probabilities, color='skyblue', width=0.6)
+plt.xlabel('Outcomes (X)')
+plt.ylabel('Probability (P(X = x))')
+plt.title('Probability Mass Function (PMF): Rolling a Die')
+plt.show()
+Output:
+A bar chart where each outcome (1, 2, ..., 6) has a probability of 
+1
+6
+6
+1
+​
+ .
+
+2. Probability Density Function (PDF)
+Definition:
+The Probability Density Function (PDF) is used for continuous random variables. Unlike the PMF, the PDF does not give the probability of the random variable taking an exact value 
+𝑥
+x (since the probability of 
+𝑋
+=
+𝑥
+X=x for continuous variables is 
+0
+0). Instead, it describes the relative likelihood of the variable taking on a value within a specific range:
+
+𝑃
+(
+𝑎
+≤
+𝑋
+≤
+𝑏
+)
+=
+∫
+𝑎
+𝑏
+𝑓
+(
+𝑥
+)
+ 
+𝑑
+𝑥
+P(a≤X≤b)=∫ 
+a
+b
+​
+ f(x)dx
+Where:
+
+𝑓
+(
+𝑥
+)
+f(x) is the PDF of the random variable 
+𝑋
+X.
+The total area under the curve of the PDF is always 
+1
+1: 
+∫
+−
+∞
+∞
+𝑓
+(
+𝑥
+)
+ 
+𝑑
+𝑥
+=
+1
+∫ 
+−∞
+∞
+​
+ f(x)dx=1.
+Example:
+Heights of people:
+𝑋
+=
+height of a randomly selected individual
+X=height of a randomly selected individual.
+Heights follow a normal distribution with mean 
+𝜇
+=
+170
+ 
+cm
+μ=170cm and standard deviation 
+𝜎
+=
+10
+ 
+cm
+σ=10cm.
+Properties:
+PDFs describe continuous random variables.
+𝑓
+(
+𝑥
+)
+≥
+0
+f(x)≥0 for all 
+𝑥
+x.
+The area under the curve of the PDF over any range 
+[
+𝑎
+,
+𝑏
+]
+[a,b] is the probability that 
+𝑋
+X lies in that range.
+Code Example:
+python
+Copy code
+import numpy as np
+from scipy.stats import norm
+
+# Generate data for a normal distribution
+mean, std_dev = 170, 10
+x = np.linspace(mean - 4*std_dev, mean + 4*std_dev, 1000)  # Range of values
+pdf = norm.pdf(x, mean, std_dev)  # PDF values
+
+# Plot the PDF
+plt.plot(x, pdf, color='red', label='PDF')
+plt.fill_between(x, pdf, color='skyblue', alpha=0.4)
+plt.xlabel('Height (cm)')
+plt.ylabel('Density')
+plt.title('Probability Density Function (PDF): Heights')
+plt.legend()
+plt.show()
+Output:
+A smooth bell curve showing the probability density of heights. The area under the curve between any two points (e.g., 160 and 180) gives the probability of heights within that range.
+
+3. Cumulative Distribution Function (CDF)
+Definition:
+The Cumulative Distribution Function (CDF) gives the probability that the random variable 
+𝑋
+X takes a value less than or equal to 
+𝑥
+x:
+
+𝐹
+(
+𝑥
+)
+=
+𝑃
+(
+𝑋
+≤
+𝑥
+)
+F(x)=P(X≤x)
+For a discrete random variable:
+𝐹
+(
+𝑥
+)
+=
+∑
+𝑡
+≤
+𝑥
+𝑃
+(
+𝑋
+=
+𝑡
+)
+F(x)= 
+t≤x
+∑
+​
+ P(X=t)
+For a continuous random variable:
+𝐹
+(
+𝑥
+)
+=
+∫
+−
+∞
+𝑥
+𝑓
+(
+𝑡
+)
+ 
+𝑑
+𝑡
+F(x)=∫ 
+−∞
+x
+​
+ f(t)dt
+Example:
+For rolling a die, the CDF at 
+𝑥
+=
+4
+x=4 is:
+𝐹
+(
+4
+)
+=
+𝑃
+(
+𝑋
+≤
+4
+)
+=
+𝑃
+(
+𝑋
+=
+1
+)
++
+𝑃
+(
+𝑋
+=
+2
+)
++
+𝑃
+(
+𝑋
+=
+3
+)
++
+𝑃
+(
+𝑋
+=
+4
+)
+=
+4
+6
+=
+0.6667
+F(4)=P(X≤4)=P(X=1)+P(X=2)+P(X=3)+P(X=4)= 
+6
+4
+​
+ =0.6667
+Properties:
+𝐹
+(
+𝑥
+)
+F(x) is non-decreasing.
+𝐹
+(
+−
+∞
+)
+=
+0
+F(−∞)=0 and 
+𝐹
+(
+∞
+)
+=
+1
+F(∞)=1.
+The slope of 
+𝐹
+(
+𝑥
+)
+F(x) (if it exists) gives the PDF 
+𝑓
+(
+𝑥
+)
+f(x).
+Code Example:
+Discrete CDF for Rolling a Die
+python
+Copy code
+# CDF for a discrete random variable (rolling a die)
+cdf = np.cumsum(probabilities)
+
+# Plot CDF
+plt.step(outcomes, cdf, where='post', color='blue', label='CDF')
+plt.scatter(outcomes, cdf, color='red', zorder=5)
+plt.xlabel('Outcomes (X)')
+plt.ylabel('Cumulative Probability (F(X))')
+plt.title('Cumulative Distribution Function (CDF): Rolling a Die')
+plt.legend()
+plt.show()
+Continuous CDF for Heights
+python
+Copy code
+# CDF for a continuous random variable
+cdf = norm.cdf(x, mean, std_dev)
+
+# Plot the CDF
+plt.plot(x, cdf, color='blue', label='CDF')
+plt.xlabel('Height (cm)')
+plt.ylabel('Cumulative Probability (F(x))')
+plt.title('Cumulative Distribution Function (CDF): Heights')
+plt.legend()
+plt.show()
+Output:
+Discrete CDF: A step graph showing cumulative probabilities for each die outcome.
+Continuous CDF: A smooth, increasing curve starting from 
+0
+0 (at 
+−
+∞
+−∞) and approaching 
+1
+1 (at 
++
+∞
++∞).
+4. Comparison Between PMF, PDF, and CDF
+Aspect	PMF	PDF	CDF
+Type of Variable	Discrete	Continuous	Both
+Definition	
+𝑃
+(
+𝑋
+=
+𝑥
+)
+P(X=x)	Relative likelihood 
+𝑓
+(
+𝑥
+)
+f(x)	
+𝑃
+(
+𝑋
+≤
+𝑥
+)
+P(X≤x)
+Output	Probability	Density (not direct probability)	Cumulative probability
+Visualization	Bar chart	Smooth curve	Step curve (discrete) or smooth curve (continuous)
+Formula	
+𝑃
+(
+𝑋
+=
+𝑥
+)
+P(X=x)	
+𝑓
+(
+𝑥
+)
+f(x)	
+𝐹
+(
+𝑥
+)
+=
+∫
+−
+∞
+𝑥
+𝑓
+(
+𝑡
+)
+𝑑
+𝑡
+F(x)=∫ 
+−∞
+x
+​
+ f(t)dt
+Use	Exact probabilities	Describes distribution’s shape	Probability up to a certain value
+Relationship Between PDF and CDF:
+PDF to CDF:
+The CDF is the integral of the PDF:
+𝐹
+(
+𝑥
+)
+=
+∫
+−
+∞
+𝑥
+𝑓
+(
+𝑡
+)
+ 
+𝑑
+𝑡
+F(x)=∫ 
+−∞
+x
+​
+ f(t)dt
+CDF to PDF:
+The PDF is the derivative of the CDF:
+𝑓
+(
+𝑥
+)
+=
+𝑑
+𝐹
+(
+𝑥
+)
+𝑑
+𝑥
+f(x)= 
+dx
+dF(x)
+​
+ 
+Code Example Showing Relationship:
+python
+Copy code
+# PDF and CDF for a normal distribution
+pdf = norm.pdf(x, mean, std_dev)
+cdf = norm.cdf(x, mean, std_dev)
+
+# Plot both
+plt.plot(x, pdf, label='PDF', color='red')
+plt.plot(x, cdf, label='CDF', color='blue')
+plt.title('PDF and CDF Relationship')
+plt.xlabel('x')
+plt.ylabel('Value')
+plt.legend()
+plt.show()
